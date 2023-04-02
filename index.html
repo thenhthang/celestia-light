@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Enter your NodeID(bridge node, full node, light node)</h5>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="12D..." id="node-id-input">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <div class="card" id="result-card" style="display:none">
+                    <div class="card-header">Node Search Result</div>
+                    <div class="card-body">
+                        <p><strong>Node ID:</strong> <span id="node-id"></span></p>
+                        <p><strong>Node Type:</strong> <span style="background-color:yellow;" id="node_type_str"></span></p>
+                        <p><strong>Uptime:</strong> <span id="uptime"></span></p>
+                        <p><strong>Last PFB Timestamp:</strong> <span id="last-pfb-timestamp"></span></p>
+                        <p><strong>PFB Count:</strong> <span id="pfb-count"></span></p>
+                        <p><strong>Head:</strong> <span id="head"></span></p>
+                        <p><strong>Network Height:</strong> <span id="network-height"></span></p>
+                        <p><strong>DAS Latest Sampled Timestamp:</strong> <span id="das-latest-sampled-timestamp"></span></p>
+                        <p><strong>DAS Network Head:</strong> <span id="das-network-head"></span></p>
+                        <p><strong>DAS Sampled Chain Head:</strong> <span id="das-sampled-chain-head"></span></p>
+                        <p><strong>DAS Sampled Headers Counter:</strong> <span id="das_sampled_headers_counter"></span></p>
+                        <p><strong>DAS Total Sampled Headers:</strong> <span id="das_total_sampled_headers"></span></p>
+                        <p><strong>Total Synced Headers:</strong> <span id="total_synced_headers"></span></p>
+                        <p><strong>Start Time:</strong> <span id="start_time"></span></p>
+                        <p><strong>Last Restart Time:</strong> <span id="last_restart_time"></span></p>
+                        <p><strong>Node Runtime Counter in Seconds:</strong> <span id="node_runtime_counter_in_seconds"></span></p>
+                        <p><strong>Last Accumulative Node Runtime Counter in Seconds:</strong> <span id="last_accumulative_node_runtime_counter_in_seconds"></span></p>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS15Ih"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <script>
+        const searchBtn = document.getElementById('search-btn');
+        const nodeIdInput = document.getElementById('node-id-input');
+        const resultCard = document.getElementById('result-card');
+        const resultNodeId = document.getElementById('result-node-id');
+        const resultNodeType = document.getElementById('result-node-type');
+        const resultUptime = document.getElementById('result-uptime');
+
+        searchBtn.addEventListener('click', function () {
+            const nodeID = nodeIdInput.value.trim();
+            if (!nodeID) {
+                alert('Please enter a valid NodeID.');
+                resultCard.style.display = `none`
+                return;
+            }
+            const _url = `https://leaderboard.celestia.tools/api/v1/nodes/${nodeID}`;
+            fetch(_url)
+                .then(response =>response.json())
+                .then(data => {
+                    document.getElementById('node-id').textContent = data.node_id;
+                    document.getElementById('uptime').textContent = data.uptime;
+                    document.getElementById('last-pfb-timestamp').textContent = data.last_pfb_timestamp;
+                    document.getElementById('pfb-count').textContent = data.pfb_count;
+                    document.getElementById('head').textContent = data.head;
+                    document.getElementById('network-height').textContent = data.network_height;
+                    document.getElementById('das-latest-sampled-timestamp').textContent = data.das_latest_sampled_timestamp;
+                    document.getElementById('das-network-head').textContent = data.das_network_head;
+                    document.getElementById('das-sampled-chain-head').textContent = data.das_sampled_chain_head;
+                    document.getElementById('das_sampled_headers_counter').textContent = data.das_sampled_headers_counter;
+                    document.getElementById('das_total_sampled_headers').textContent = data.das_total_sampled_headers;
+                    document.getElementById('total_synced_headers').textContent = data.total_synced_headers;
+                    document.getElementById('start_time').textContent = data.start_time;
+                    document.getElementById('last_restart_time').textContent = data.last_restart_time;
+                    document.getElementById('node_runtime_counter_in_seconds').textContent = data.node_runtime_counter_in_seconds;
+                    document.getElementById('last_accumulative_node_runtime_counter_in_seconds').textContent = data.last_accumulative_node_runtime_counter_in_seconds;
+                    document.getElementById('node_type_str').textContent = data.node_type_str;
+                    resultCard.style.display = `block`;
+                    })
+          .catch(error => {
+          alert(`Error: ${error}`);
+      });
+      });
+      </script>
+
+</body>
+</html>
