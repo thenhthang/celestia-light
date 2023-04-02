@@ -14,7 +14,7 @@
             <div class="col-md-6">
                 <h5>Enter your NodeID(bridge node, full node, light node)</h5>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="12D..." id="node-id-input">
+                    <input type="text" class="form-control" value="12D3KooWA99F5gUxP1QuXVjRRF47e9ZQMadYSYTi1XeRKjBm3TkZ" placeholder="12D..." id="node-id-input">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="search-btn">Search</button>
                     </div>
@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <p><strong>Node ID:</strong> <span id="node-id"></span></p>
                         <p><strong>Node Type:</strong> <span style="background-color:yellow;" id="node_type_str"></span></p>
-                        <p><strong>Uptime:</strong> <span id="uptime"></span></p>
+                        <p><strong>Uptime:</strong> <span id="uptime"></span><span id="status"></span></p>
                         <p><strong>Last PFB Timestamp:</strong> <span id="last-pfb-timestamp"></span></p>
                         <p><strong>PFB Count:</strong> <span id="pfb-count"></span></p>
                         <p><strong>Head:</strong> <span id="head"></span></p>
@@ -68,6 +68,7 @@
         const resultNodeId = document.getElementById('result-node-id');
         const resultNodeType = document.getElementById('result-node-type');
         const resultUptime = document.getElementById('result-uptime');
+        const status = document.getElementById('status');
 
         searchBtn.addEventListener('click', function () {
             const nodeID = nodeIdInput.value.trim();
@@ -97,7 +98,29 @@
                     document.getElementById('node_runtime_counter_in_seconds').textContent = data.node_runtime_counter_in_seconds;
                     document.getElementById('last_accumulative_node_runtime_counter_in_seconds').textContent = data.last_accumulative_node_runtime_counter_in_seconds;
                     document.getElementById('node_type_str').textContent = data.node_type_str;
+                    var statusid = 0;
+                    if(data.node_type == 1 || data.node_type == 2){
+                        if(data.uptime >= 99.9){
+                            statusid = 0
+                        }else{
+                            statusid = 1
+                        }
+                    }else{
+                        if(data.uptime >= 80){
+                            statusid = 0
+                        }else{
+                            statusid = 1
+                        }
+                    }
+                    if(statusid == 0){
+                        status.textContent = "Good";
+                        status.style = "background-color:green;padding:4px";
+                    }else{
+                        status.textContent = "Bad"
+                        status.style = "background-color:red;padding:4px";
+                    }
                     resultCard.style.display = `block`;
+                    
                     })
           .catch(error => {
           alert(`Error: ${error}`);
