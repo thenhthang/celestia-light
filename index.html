@@ -4,25 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Node Search</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
 </head>
 <body>
+     <h4><a href="https://github.com/thenhthang/celestia-light">Source code</a></h4>
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <h5>Enter your NodeID(bridge node, full node, light node)</h5>
+                <h5>Toolings for the Celestia Network</h5>
+                <small>Enter your NodeID(bridge node, full node, light node)</small>
                 <div class="input-group">
                     <input type="text" class="form-control" value="12D3KooWA99F5gUxP1QuXVjRRF47e9ZQMadYSYTi1XeRKjBm3TkZ" placeholder="12D..." id="node-id-input">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="button" id="search-btn">Search</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-md-6">
                 <div class="card" id="result-card" style="display:none">
                     <div class="card-header">Node Search Result</div>
                     <div class="card-body">
@@ -43,33 +40,141 @@
                         <p><strong>Last Restart Time:</strong> <span id="last_restart_time"></span></p>
                         <p><strong>Node Runtime Counter in Seconds:</strong> <span id="node_runtime_counter_in_seconds"></span></p>
                         <p><strong>Last Accumulative Node Runtime Counter in Seconds:</strong> <span id="last_accumulative_node_runtime_counter_in_seconds"></span></p>
-                        
-
                     </div>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <h5>Submitting PayForBlob Transactions</h5>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">IP</span>
+                    </div>
+                    <input type="text" id="pfb-ip" value="94.130.180.137" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Namespace ID</span>
+                    </div>
+                    <input type="text" id="pfb-namespace" value="b7e7e442f9ca635d" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Data</span>
+                    </div>
+                    <input type="text" id="pfb-data" value="304fb21c4ee07631101a4a753565bab6c883c7f1b4ad8da17b8dd084d285a903169bde7eb2d909fd7fc532196b2709781d28df7382eca27ad0f859044ed40d" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Gas limit</span>
+                    </div>
+                    <input type="number" id="pfb-gas" value="80000" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Fee</span>
+                    </div>
+                    <input type="number" id="pfb-fee" value="2000" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="inputGroup-sizing-default">Port</span>
+                    </div>
+                    <input type="number" id="pfb-port" value="26659" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <small class="form-text text-muted">Please sure port is opened, and start node with --gateway --gateway.addr <IP> --gateway.port <PORT></small>
+                </div>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="pfb-btn">Submit</button>
+                </div>
+                <div class="card" id="pfbresult-card" style="display:none">
+                    <div class="card-header">Transaction details</div>
+                    <div class="card-body">
+                        <p><strong>Block height:</strong> <span id="pfbresult-height"></span></p>
+                        <p><strong>Txhash:</strong> <span id="pfbresult-txhash"></span></p>
+                        <p><strong>Data:</strong> <span id="pfbresult-data"></span></p>
+                        <p><strong>Gas-wanted:</strong> <span id="pfbresult-gaswanted"></span></p>
+                        <p><strong>Gas-used:</strong> <span id="pfbresult-gasused"></span></p>
+                    </div>
+                </div>
+                <h6>Namespaced shares by block <span id="blockheight"></span></h6>
+                <div class="input-group mb-3">
+                   <textarea style="width:600px ;" id="shares"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNS15Ih"
-            crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script>
         const searchBtn = document.getElementById('search-btn');
+        const pfbBtn = document.getElementById('pfb-btn');
         const nodeIdInput = document.getElementById('node-id-input');
         const resultCard = document.getElementById('result-card');
         const resultNodeId = document.getElementById('result-node-id');
         const resultNodeType = document.getElementById('result-node-type');
         const resultUptime = document.getElementById('result-uptime');
         const status = document.getElementById('status');
-
+        async function postData(url = "", data = {}) {
+            const datas = JSON.stringify(data);
+        // Default options are marked with *
+        const response = await fetch(url, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            //mode: "no-cors", // no-cors, *cors, same-origin
+            //cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            //credentials: "same-origin", // include, *same-origin, omit
+            headers: {
+            "Content-Type": "application/json",
+            },
+            //redirect: "follow", // manual, *follow, error
+            //referrerPolicy: "unsafe-url", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            body: datas, // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+        }
+        pfbBtn.addEventListener('click',function(){
+            const _nodeip = document.getElementById('pfb-ip').value.trim();
+            const _namespace = document.getElementById('pfb-namespace').value;
+            const _data = document.getElementById('pfb-data').value;
+            const _gas = document.getElementById('pfb-gas').value;
+            const _fee = document.getElementById('pfb-fee').value;
+            const _port = document.getElementById('pfb-port').value;
+            var _blockheight = 0;
+            const _url = `http://94.130.180.137/celestia/pfb`;
+            
+            const _body = `{"namespace_id": "${_namespace}","data":"${_data}","gas_limit": ${_gas}, "fee": ${_fee}}`;
+            const _data2 = {
+            namespace_id: 'b7e7e442f9ca635d',
+            data: '304fb21c4ee07631101a4a753565bab6c883c7f1b4ad8da17b8dd084d285a903169bde7eb2d909fd7fc532196b2709781d28df7382eca27ad0f859044ed40d',
+            gas_limit: 80000,
+            fee: 2000
+            };
+            postData(_url,_data2).then((data) => {
+                document.getElementById("pfbresult-height").textContent = data.height;
+                document.getElementById("pfbresult-txhash").textContent = data.txhash
+                document.getElementById("pfbresult-data").textContent = data.data;
+                document.getElementById("pfbresult-gaswanted").textContent = data.gas_wanted;
+                document.getElementById("pfbresult-gasused").textContent = data.gas_used;
+                _blockheight = data.height;
+                document.getElementById("pfbresult-card").style.display= "block";
+                document.getElementById("blockheight").textContent = _blockheight;
+                const _urlnamespace = `http://94.130.180.137/celestia/shares/${_namespace}/height/${_blockheight}`;
+                fetch(_urlnamespace)
+                .then(response =>response.json())
+                .then(item => {
+                    document.getElementById("shares").textContent = item.shares;
+                })
+                console.log("LOG",data); // JSON data parsed by `data.json()` call
+            });
+            
+        });
+        
         searchBtn.addEventListener('click', function () {
             const nodeID = nodeIdInput.value.trim();
             if (!nodeID) {
