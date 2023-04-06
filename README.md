@@ -53,3 +53,5 @@ server {
 sudo apt install certbot -y python3-certbot-nginx
 
 certbot --nginx -d celestia.xn--radi-tqa.vn
+
+3. Poin domain to vps
