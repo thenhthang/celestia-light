@@ -3,7 +3,9 @@
 GUIDE for Submitting PayForBlob Transactions
 Server Configuration
 1. Install nginx as reverse proxy
+
 installation information
+
 server {
      server_name celestia.xn--radi-tqa.vn;
      location /celestia/pfb {
@@ -47,5 +49,7 @@ server {
      ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 2. Configure https
+
 sudo apt install certbot -y python3-certbot-nginx
+
 certbot --nginx -d celestia.xn--radi-tqa.vn
