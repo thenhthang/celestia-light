@@ -146,7 +146,7 @@
             const _fee = document.getElementById('pfb-fee').value;
             const _port = document.getElementById('pfb-port').value;
             var _blockheight = 0;
-            const _url = `http://94.130.180.137/celestia/pfb`;
+            const _url = `https://celestia.radió.vn/celestia/pfb`;
             
             const _body = `{"namespace_id": "${_namespace}","data":"${_data}","gas_limit": ${_gas}, "fee": ${_fee}}`;
             const _data2 = {
@@ -164,7 +164,7 @@
                 _blockheight = data.height;
                 document.getElementById("pfbresult-card").style.display= "block";
                 document.getElementById("blockheight").textContent = _blockheight;
-                const _urlnamespace = `http://94.130.180.137/celestia/shares/${_namespace}/height/${_blockheight}`;
+                const _urlnamespace = `https://celestia.radió.vn/celestia/shares/${_namespace}/height/${_blockheight}`;
                 fetch(_urlnamespace)
                 .then(response =>response.json())
                 .then(item => {
