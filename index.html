@@ -17,7 +17,10 @@
                 <div class="input-group">
                     <input type="text" class="form-control" value="12D3KooWA99F5gUxP1QuXVjRRF47e9ZQMadYSYTi1XeRKjBm3TkZ" placeholder="12D..." id="node-id-input">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" id="search-btn">Search</button>
+                        <button class="btn btn-primary" type="button" id="search-btn">Check node</button>
+                        <div id="spinners1" style="display:none" class="spinner-border text-info" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </div>
                 </div>
                 <div class="card" id="result-card" style="display:none">
@@ -84,6 +87,9 @@
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button" id="pfb-btn">Submit</button>
+                    <div id="spinners2" style="display:none" class="spinner-border text-info" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
                 </div>
                 <div class="card" id="pfbresult-card" style="display:none">
                     <div class="card-header">Transaction details</div>
@@ -155,6 +161,7 @@
             gas_limit: 80000,
             fee: 2000
             };
+            document.getElementById("spinners2").style.display="block";
             postData(_url,_data2).then((data) => {
                 document.getElementById("pfbresult-height").textContent = data.height;
                 document.getElementById("pfbresult-txhash").textContent = data.txhash
@@ -170,6 +177,7 @@
                 .then(item => {
                     document.getElementById("shares").textContent = item.shares;
                 })
+                document.getElementById("spinners2").style.display="none";
                 console.log("LOG",data); // JSON data parsed by `data.json()` call
             });
             
@@ -183,6 +191,7 @@
                 return;
             }
             const _url = `https://leaderboard.celestia.tools/api/v1/nodes/${nodeID}`;
+            document.getElementById("spinners1").style.display=`block`;
             fetch(_url)
                 .then(response =>response.json())
                 .then(data => {
@@ -225,7 +234,7 @@
                         status.style = "background-color:red;padding:4px";
                     }
                     resultCard.style.display = `block`;
-                    
+                    document.getElementById("spinners1").style.display=`none`;
                     })
           .catch(error => {
           alert(`Error: ${error}`);
