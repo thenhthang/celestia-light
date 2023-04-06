@@ -1,7 +1,9 @@
 # celestia-light
 
 GUIDE for Submitting PayForBlob Transactions
+
 Server Configuration
+
 1. Install nginx as reverse proxy
 
 installation information
@@ -48,6 +50,7 @@ server {
      include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
      ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
+
 2. Configure https
 
 sudo apt install certbot -y python3-certbot-nginx
